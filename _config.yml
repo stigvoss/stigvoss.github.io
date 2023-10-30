@@ -23,7 +23,7 @@ author: Stig Voss
 description: >- # this means to ignore newlines until "baseurl:"
   Tips and tricks for things I am working on.
 baseurl: "/" # the subpath of your site, e.g. /blog
-url: "https://stigvoss.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://stigvoss.dk" # the base hostname & protocol for your site, e.g. http://example.com
 lang: en
 timezone: "Europe/Copenhagen"
 
