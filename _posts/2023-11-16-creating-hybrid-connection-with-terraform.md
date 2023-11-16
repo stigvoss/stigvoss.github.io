@@ -11,9 +11,9 @@ The issue is present for both Function Apps and Web Apps.
 
 Following the [official documentation's examples](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/function_app_hybrid_connection#example-usage), the following code will not work and will result in a seemingly successful deployment, but the hybrid connection will not work. No connection will be able to be established, but everything looks fine in the Azure Portal.
 
-I have two workaround solutions for this issue.
+I have two workarounds for this issue and a workaround idea.
 
-## Workaround 1 - Run a provisioner after deployment of `azurerm_function_app_hybrid_connection`
+## Workaround 1 - Run a provisioner after deployment of Function App Hybrid Connection
 ```hcl
 resource "azurerm_function_app_hybrid_connection" "example" {
   function_app_id = azurerm_linux_function_app.example.id
@@ -29,9 +29,9 @@ resource "azurerm_function_app_hybrid_connection" "example" {
 }
 ```
 
-The thing to note in this solution is that the provisioner will change the `relay_id` which differs in letter casing from what Terraform expects. This will cause Terraform to see the resource as changed and will recreate the hybrid connection on every run.
+The thing to note in this workaround is that the provisioner will change the `relay_id` which differs in letter casing from what Terraform expects. This will cause Terraform to see the resource as changed and will recreate the hybrid connection on every run.
 
-## Workaround 2 - Use a `null_resource` and provisioners to create the hybrid connection with Azure CLI
+## Workaround 2 - Use a Null Resource and provisioners to create the hybrid connection with Azure CLI
 ```hcl
 resource "null_resource" "function_app_hybrid_connection" {
   triggers = {
@@ -52,7 +52,13 @@ resource "null_resource" "function_app_hybrid_connection" {
 }
 ```
 
-This solution will not use the `azurerm_function_app_hybrid_connection` resource at all, but instead use a `null_resource` with provisioners to create the hybrid connection with Azure CLI. The method prevents Terraform from seeing changes to the resource and will not recreate the hybrid connection on every run, but nor will it be able to update the hybrid connection if it is changed in the Azure Portal.
+This workaround will not use the `azurerm_function_app_hybrid_connection` resource at all, but instead use a `null_resource` with provisioners to create the hybrid connection with Azure CLI. The method prevents Terraform from seeing changes to the resource and will not recreate the hybrid connection on every run, but nor will it be able to update the hybrid connection if it is changed in the Azure Portal.
+
+## Workaround 3 - The Idea
+
+This is but an idea and I have not attempted it. It may be possible to make an ARM template and use the `azurerm_resource_group_template_deployment` to deploy the Function App Hybrid Connection.
+
+As with Workaround 2, this would not detect the changes to the resource. The benefit though would be having no dependence on Azure CLI.
 
 ## Remember the Metadata
 When creating the Hybrid Connection in the Azure Relay, remember to add the metadata `endpoint` with the value of the hostname and port of the server you want to connect to, otherwise the provisioner will fail and the Azure Portal will not display the information correctly.

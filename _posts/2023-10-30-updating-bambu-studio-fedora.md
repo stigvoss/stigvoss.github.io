@@ -5,6 +5,8 @@ date:   2023-10-30 20:50:00 +0100
 categories: fedora bambu-studio
 ---
 
+**UPDATE**: Consider taking a look at the the improved script [here](/2023/10/30/improving-bambu-studio-update-script/).
+
 To avoid having to visit GitHub to download new versions of Bambu Studio for Linux, use the below script to download and update your AppImage.
 
 ```bash
