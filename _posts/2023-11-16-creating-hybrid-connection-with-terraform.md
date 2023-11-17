@@ -2,7 +2,7 @@
 layout: post
 title:  "Workarounds for creating Azure Hybrid Connections with Terraform"
 date:   2023-11-16 15:00:00 +0100
-categories: terraform azurerm hybrid-connection
+categories: terraform azurerm hybrid-connection azure
 ---
 
 Due to some bugs in the current [Terraform azurerm provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest) (v3.80.0), certain workarounds are needed to create a working hybrid connection.
@@ -13,7 +13,7 @@ Following the [official documentation's examples](https://registry.terraform.io/
 
 I have two workarounds for this issue and a workaround idea.
 
-## Workaround 1 - Run a provisioner after deployment of Function App Hybrid Connection
+## Workaround 1 - Run a Provisioner after Deployment of Function App Hybrid Connection
 ```hcl
 resource "azurerm_function_app_hybrid_connection" "example" {
   function_app_id = azurerm_linux_function_app.example.id
@@ -37,7 +37,7 @@ resource "azurerm_function_app_hybrid_connection" "example" {
 
 The thing to note in this workaround is that the provisioner will change the `relay_id` which differs in letter casing from what Terraform expects. This will cause Terraform to see the resource as changed and will recreate the hybrid connection on every run. To prevent this, use the lifecycle meta-argument for `ignore_changes` on `relay_id`.
 
-## Workaround 2 - Use a Null Resource and provisioners to create the hybrid connection with Azure CLI
+## Workaround 2 - Use a Null Resource and Provisioners to create the Hybrid Connection with Azure CLI
 ```hcl
 resource "null_resource" "function_app_hybrid_connection" {
   triggers = {
