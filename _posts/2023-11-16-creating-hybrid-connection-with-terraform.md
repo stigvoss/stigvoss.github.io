@@ -23,13 +23,19 @@ resource "azurerm_function_app_hybrid_connection" "example" {
 
   send_key_name = azurerm_relay_hybrid_connection_authorization_rule.example.name
 
+  lifecycle {
+    ignore_changes = [
+      relay_id
+    ]
+  }
+
   provisioner "local-exec" {
     command = "az functionapp hybrid-connection add --hybrid-connection ${azurerm_relay_hybrid_connection.example.name} --namespace ${azurerm_relay_namespace.example.name} -n ${azurerm_linux_function_app.example.name} -g ${azurerm_resource_group.example.name}"
   }
 }
 ```
 
-The thing to note in this workaround is that the provisioner will change the `relay_id` which differs in letter casing from what Terraform expects. This will cause Terraform to see the resource as changed and will recreate the hybrid connection on every run.
+The thing to note in this workaround is that the provisioner will change the `relay_id` which differs in letter casing from what Terraform expects. This will cause Terraform to see the resource as changed and will recreate the hybrid connection on every run. To prevent this, use the lifecycle meta-argument for `ignore_changes` on `relay_id`.
 
 ## Workaround 2 - Use a Null Resource and provisioners to create the hybrid connection with Azure CLI
 ```hcl
