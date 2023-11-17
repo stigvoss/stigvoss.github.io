@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Custom Root Trust with HttpClient in .NET"
-date:   2023-11-17 20:30:00 +0100
+date:   2023-11-17 20:15:00 +0100
 categories: dotnet security certificates self-signed
 ---
 
