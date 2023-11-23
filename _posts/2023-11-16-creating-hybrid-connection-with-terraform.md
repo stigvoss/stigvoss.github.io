@@ -30,7 +30,7 @@ resource "azurerm_function_app_hybrid_connection" "example" {
   }
 
   provisioner "local-exec" {
-    command = "az functionapp hybrid-connection add --hybrid-connection ${azurerm_relay_hybrid_connection.example.name} --namespace ${azurerm_relay_namespace.example.name} -n ${azurerm_linux_function_app.example.name} -g ${azurerm_resource_group.example.name}"
+    command = "az functionapp hybrid-connection add --hybrid-connection ${azurerm_relay_hybrid_connection.example.name} --namespace ${azurerm_relay_namespace.example.name} -n ${azurerm_linux_function_app.example.name} -g ${azurerm_resource_group.example.name} --subscription ${var.subscription_id}"
   }
 }
 ```
@@ -45,15 +45,16 @@ resource "null_resource" "function_app_hybrid_connection" {
     resource_group_name  = azurerm_resource_group.example.name
     namespace_name = azurerm_relay_namespace.example.name
     hybrid_connection_name = azurerm_relay_hybrid_connection.example.name
+    subscription_id = var.subscription_id
   }
 
   provisioner "local-exec" {
-    command = "az functionapp hybrid-connection add --hybrid-connection ${self.triggers.hybrid_connection_name} --namespace ${self.triggers.namespace_name} -n ${self.triggers.function_app_name} -g ${self.triggers.resource_group_name}"
+    command = "az functionapp hybrid-connection add --hybrid-connection ${self.triggers.hybrid_connection_name} --namespace ${self.triggers.namespace_name} -n ${self.triggers.function_app_name} -g ${self.triggers.resource_group_name} --subscription ${self.triggers.subscription_id}"
   }
 
   provisioner "local-exec" {
     when = destroy
-    command = "az functionapp hybrid-connection remove --hybrid-connection ${self.triggers.hybrid_connection_name} --namespace ${self.triggers.namespace_name} -n ${self.triggers.function_app_name} -g ${self.triggers.resource_group_name}"
+    command = "az functionapp hybrid-connection remove --hybrid-connection ${self.triggers.hybrid_connection_name} --namespace ${self.triggers.namespace_name} -n ${self.triggers.function_app_name} -g ${self.triggers.resource_group_name} --subscription ${self.triggers.subscription_id}"
   }
 }
 ```
