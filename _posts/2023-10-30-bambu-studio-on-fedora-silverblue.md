@@ -5,6 +5,8 @@ date:   2023-10-30 20:15:00 +0100
 categories: fedora fedora-silverblue bambu-studio
 ---
 
+**UPDATE**: Bambu Studio has now been released as a [Flatpak](https://flathub.org/apps/com.bambulab.BambuStudio). Huge thanks to [hadess](https://github.com/hadess) and may I suggest [thanking him through his wishlist](https://github.com/flathub/com.bambulab.BambuStudio#saying-thanks).
+
 Bambu Studio for Linux is only distributed as an AppImage, not as a Flatpak and when running on Fedora, Bambu Studio requires extra dependencies to be installed.
 
 This fact makes it challenging to run on an immutable operating system like Fedora Silverblue.

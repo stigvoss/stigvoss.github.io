@@ -5,6 +5,8 @@ date:   2023-10-30 20:50:00 +0100
 categories: fedora bambu-studio
 ---
 
+**UPDATE**: Bambu Studio has now been released as a [Flatpak](https://flathub.org/apps/com.bambulab.BambuStudio) and if you run an operating system supporting Flatpak, I would highly suggest using that instead. Huge thanks to [hadess](https://github.com/hadess) and may I suggest [thanking him through his wishlist](https://github.com/flathub/com.bambulab.BambuStudio#saying-thanks).
+
 Earlier, I wrote about [updating Bambu Studio on Fedora Linux](https://stigvoss.dk/2023/10/30/updating-bambu-studio-fedora/).
 I have since then made a few improvements, such as checking if a newer version exists.
 

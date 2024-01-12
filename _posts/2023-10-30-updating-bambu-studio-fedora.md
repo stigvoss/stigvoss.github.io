@@ -7,6 +7,8 @@ categories: fedora bambu-studio
 
 **UPDATE**: Consider taking a look at the the improved script [here](/2023/10/30/improving-bambu-studio-update-script/).
 
+**UPDATE 2**: Bambu Studio has now been released as a [Flatpak](https://flathub.org/apps/com.bambulab.BambuStudio) and if you run an operating system supporting Flatpak, I would highly suggest using that instead. Huge thanks to [hadess](https://github.com/hadess) and may I suggest [thanking him through his wishlist](https://github.com/flathub/com.bambulab.BambuStudio#saying-thanks).
+
 To avoid having to visit GitHub to download new versions of Bambu Studio for Linux, use the below script to download and update your AppImage.
 
 ```bash
